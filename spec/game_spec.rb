@@ -9,7 +9,7 @@ RSpec.describe Game do
     expect(pick_4.cost).to eq(2)
   end
 
-  xit 'can have a national drawing or not' do 
+  it 'can have a national drawing or not' do 
     pick_4 = Game.new('Pick 4', 2)
     mega_millions = Game.new('Mega Millions', 5, true)
 
