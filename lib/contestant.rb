@@ -18,4 +18,8 @@ class Contestant
   def full_name 
     "#{first_name} #{last_name}"
   end
+
+  def add_game_interest(game_name)
+    @game_interests << game_name
+  end
 end
