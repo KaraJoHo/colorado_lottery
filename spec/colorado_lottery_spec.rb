@@ -7,7 +7,7 @@ RSpec.describe ColoradoLottery do
     lottery = ColoradoLottery.new 
      expect(lottery.registered_contestants).to eq({})
      expect(lottery.winners).to eq([])
-     expect(lottery.current_contestants).to eq({})
+     #expect(lottery.current_contestants).to eq({})
   end
 
   describe '#interested_and_18? and #can_register?' do 
@@ -315,7 +315,7 @@ RSpec.describe ColoradoLottery do
 
       lottery.charge_contestants(cash_5)
 
-      expect(current_contestants).to eq({cash_5 => ["Winston Churchill", "Grace Hopper"]})
+      expect(lottery.current_contestants).to eq({cash_5 => ["Winston Churchill", "Grace Hopper"]})
       expect(grace.spending_money).to eq(19)
       expect(winston.spending_money).to eq(4) 
 
