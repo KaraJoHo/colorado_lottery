@@ -10,4 +10,8 @@ class ColoradoLottery
   def interested_and_18?(contestant, game)
     contestant.age >= 18 && contestant.game_interests.include?(game.name)
   end
+
+  def can_register?(contestant, game)
+    (interested_and_18?(contestant, game)) && (contestant.out_of_state? == false || game.national_drawing? == true)
+  end
 end
