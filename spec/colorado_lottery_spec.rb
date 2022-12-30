@@ -41,7 +41,7 @@ RSpec.describe ColoradoLottery do
     end
   end
 
-  describe '#interested_and_18?' do 
+  describe '#interested_and_18? and #can_register?' do 
     it 'checks if the contestant is interested in the game and 18 or older' do 
 
       alexander.add_game_interest('Pick 4')
@@ -58,6 +58,11 @@ RSpec.describe ColoradoLottery do
       expect(lottery.interested_and_18?(benjamin, mega_millions)).to eq(false)
       expect(lottery.interested_and_18?(alexander, cash_5)).to eq(false)
 
+      expect(lottery.can_register?(alexander, pick_4)).to eq(true)
+      expect(lottery.can_register?(alexander, cash_5)).to eq(false)
+      expect(lottery.can_register?(frederick, mega_millions)).to eq(true)
+      expect(lottery.can_register?(benjamin, mega_millions)).to eq(false)
+      expect(lottery.can_register?(frederick, cash_5)).to eq(false)
     end
   end
 
