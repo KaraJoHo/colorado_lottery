@@ -19,4 +19,13 @@ RSpec.describe Contestant do
       expect(alexander.game_interests).to eq([])
     end
   end
+
+  describe '#add_interests' do 
+    it 'can add interests to the contestants list of interests' do 
+      alexander.add_game_interest('Mega Millions')
+      alexander.add_game_interest('Pick 4')
+
+      expect(alexander.game_interests).to eq(["Mega Millions", "Pick 4"])
+    end
+  end
 end
