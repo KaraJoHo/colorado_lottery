@@ -66,5 +66,28 @@ RSpec.describe ColoradoLottery do
     end
   end
 
+  describe '#register_contestant' do 
+    it 'registers teh contestants with the game name and the contestants who can register for that game' do 
+      alexander.add_game_interest('Pick 4')
+      alexander.add_game_interest('Mega Millions')
+
+      frederick.add_game_interest('Mega Millions')
+
+      winston.add_game_interest('Cash 5')
+      winston.add_game_interest('Mega Millions')
+
+      benjamin.add_game_interest('Mega Millions')
+
+      lottery.register_contestant(alexander, pick_4) 
+
+      expect(lottery.registered_contestants).to eq({"Pick 4" => [alexander]})
+
+      lottery.register_contestant(alexander, mega_millions) 
+
+      expect(lottery.registered_contestants).to eq({"Pick 4" => [alexander], "Mega Millions" => [alexander]})
+
+    end
+  end
+
 
 end

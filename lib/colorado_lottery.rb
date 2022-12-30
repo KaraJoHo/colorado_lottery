@@ -14,4 +14,6 @@ class ColoradoLottery
   def can_register?(contestant, game)
     interested_and_18?(contestant, game)
   end
+
+  
 end
