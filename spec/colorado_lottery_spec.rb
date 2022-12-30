@@ -86,6 +86,16 @@ RSpec.describe ColoradoLottery do
 
       expect(lottery.registered_contestants).to eq({"Pick 4" => [alexander], "Mega Millions" => [alexander]})
 
+      lottery.register_contestant(frederick, mega_millions)
+      lottery.register_contestant(winston, cash_5)
+      lottery.register_contestant(winston, mega_millions)
+
+      expected = {
+                    "Pick 4" => [alexander],
+                    "Mega Millions" => [alexander, frederick, winston],
+                    "Cash 5" => [winston]
+      }
+      expect(lottery.registered_contestants).to eq(expected)
     end
   end
 

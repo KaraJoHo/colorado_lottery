@@ -15,5 +15,12 @@ class ColoradoLottery
     interested_and_18?(contestant, game)
   end
 
-  
+  def register_contestant(contestant, game)
+    if @registered_contestants[game.name] == nil 
+      @registered_contestants[game.name] = []
+    end
+    @registered_contestants[game.name] << contestant
+   
+    @register_contestant
+  end
 end
