@@ -6,4 +6,9 @@ class ColoradoLottery
     @winners = []
     @current_contestants = {}
   end
+
+  def interested_and_18?(contestant, game)
+    #require 'pry'; binding.pry
+    (contestant.age >= 18) && (contestant.game_interests.include?(game.name)) && (contestant.out_of_state? == false || game.national_drawing? == true) 
+  end
 end
