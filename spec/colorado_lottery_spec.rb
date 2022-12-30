@@ -34,10 +34,10 @@ RSpec.describe ColoradoLottery do
                      spending_money: 5})}   
   describe '#initialize' do 
     it 'exists and has attributes' do 
-      expect(colorado_lottery).to be_a(ColoradoLottery)
-      expect(colorado_lottery.registered_contestants).to eq({})
-      expect(colorado_lottery.winners).to eq([])
-      expect(colorado_lottery.current_contestants).to eq({})
+      expect(lottery).to be_a(ColoradoLottery)
+      expect(lottery.registered_contestants).to eq({})
+      expect(lottery.winners).to eq([])
+      expect(lottery.current_contestants).to eq({})
     end
   end
 
