@@ -12,7 +12,7 @@ class Contestant
   end
 
   def full_name 
-    @first_name << " " + @last_name
+    "#{@first_name} #{@last_name}"
   end
 
   def out_of_state? 
@@ -23,4 +23,7 @@ class Contestant
     @game_interests << game_name
   end
 
+  def charge(cost)
+    @spending_money -= cost
+  end
 end

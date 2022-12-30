@@ -201,10 +201,22 @@ RSpec.describe ColoradoLottery do
       }
 
       lottery.charge_contestants(cash_5) 
-      
+
       expect(lottery.current_contestants).to eq({cash_5 => ["Winston Churchill", "Grace Hopper"]})
       expect(grace.spending_money).to eq(19)
       expect(winston.spending_money).to eq(4)
+
+      lottery.charge_contestants(mega_millions)
+
+      current_expected = {cash_5 => ["Winston Churchill", "Grace Hopper"],
+                          mega_millions => ["Alexander Aigiades", "Frederick Douglass", "Grace Hopper"]}
+
+      expect(lottery.current_contestants).to eq(current_expected)
+
+      expect(grace.spending_money).to eq(14)
+      expect(winston.spending_money).to eq(4)
+      expect(alexander.spending_money).to eq(5)
+      expect(frederick.spending_money).to eq(15)
 
     end
   end
