@@ -157,8 +157,8 @@ RSpec.describe ColoradoLottery do
                     "Cash 5" => [winston, grace]
       }
 
-      expect(lottery.eligible_contestants(pick4)).to eq([alexander, grace])
-      expect(lottery.eligible_contestants(cash_5)).to eq(winston, grace)
+      expect(lottery.eligible_contestants(pick_4)).to eq([alexander, grace])
+      expect(lottery.eligible_contestants(cash_5)).to eq([winston, grace])
       expect(lottery.eligible_contestants(mega_millions)).to eq([alexander, frederick, winston, grace])
     end
   end
