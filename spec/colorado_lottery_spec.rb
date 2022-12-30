@@ -163,5 +163,51 @@ RSpec.describe ColoradoLottery do
     end
   end
 
+  describe '#charge_contestant' do 
+    it 'charges the eligible contestants and returns a list of contestants who have been charged' do 
+      alexander.add_game_interest('Pick 4')
+      alexander.add_game_interest('Mega Millions')
+
+      frederick.add_game_interest('Mega Millions')
+
+      winston.add_game_interest('Cash 5')
+      winston.add_game_interest('Mega Millions')
+
+      benjamin.add_game_interest('Mega Millions')
+
+      lottery.register_contestant(alexander, pick_4) 
+      lottery.register_contestant(alexander, mega_millions) 
+      lottery.register_contestant(frederick, mega_millions)
+      lottery.register_contestant(winston, cash_5)
+      lottery.register_contestant(winston, mega_millions)
+
+      expected = {
+                    "Pick 4" => [alexander],
+                    "Mega Millions" => [alexander, frederick, winston],
+                    "Cash 5" => [winston]
+      }
+
+      grace.add_game_interest('Mega Millions')
+      grace.add_game_interest('Cash 5')
+      grace.add_game_interest('Pick 4')
+      lottery.register_contestant(grace, mega_millions)
+      lottery.register_contestant(grace, cash_5)
+      lottery.register_contestant(grace, pick_4)
+
+      expected2 = {
+                    "Pick 4" => [alexander, grace],
+                    "Mega Millions" => [alexander, frederick, winston, grace],
+                    "Cash 5" => [winston, grace]
+      }
+
+      lottery.charge_contestants(cash_5) 
+      
+      expect(lottery.current_contestants).to eq({cash_5 => ["Winston Churchill", "Grace Hopper"]})
+      expect(grace.spending_money).to eq(19)
+      expect(winston.spending_money).to eq(4)
+
+    end
+  end
+
 
 end
