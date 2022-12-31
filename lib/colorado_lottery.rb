@@ -47,7 +47,6 @@ class ColoradoLottery
 
   def draw_winners
    @all_games.map do |game| 
-
     @winners << {charge_contestants(game).rand.full_name => game.name}
    end
    # make array with a random contestant from the charged contestants
@@ -61,9 +60,8 @@ class ColoradoLottery
 
   # def announce_winner(game_name)
   #   @winners.map do |winner| 
-  #     require 'pry'; binding.pry
-  #     if game_name.include? winner.values 
-  #       "#{winner}"
+  #     if winner.values.include?(game_name)
+  #       "#{winner.keys.pop} won the #{game_name} on #{draw_winners}"
   #     end
   #   end
   # end
