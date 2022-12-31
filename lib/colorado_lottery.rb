@@ -1,11 +1,13 @@
 class ColoradoLottery 
-  attr_reader :registered_contestants, :winners, :current_contestants
+  attr_reader :registered_contestants, :winners, :current_contestants, :date, :all_games
 
   def initialize 
     @registered_contestants = {}
     @winners = []
     @current_contestants = {}
     @eligible_to_play = []
+    @date = Time.new
+    @all_games = []
   end
 
   def interested_and_18?(contestant, game)
@@ -42,4 +44,28 @@ class ColoradoLottery
     @current_contestants
     # require 'pry'; binding.pry
   end
+
+  def draw_winners
+   @all_games.map do |game| 
+
+    @winners << {charge_contestants(game).rand.full_name => game.name}
+   end
+   # make array with a random contestant from the charged contestants
+   #array..
+    date.strftime('%Y-%m-%d')
+  end
+
+  def add_game(game)
+    @all_games << game
+  end
+
+  # def announce_winner(game_name)
+  #   @winners.map do |winner| 
+  #     require 'pry'; binding.pry
+  #     if game_name.include? winner.values 
+  #       "#{winner}"
+  #     end
+  #   end
+  # end
+
 end

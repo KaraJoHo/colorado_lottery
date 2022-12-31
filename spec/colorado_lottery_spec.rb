@@ -1,6 +1,7 @@
 require './lib/game'
 require './lib/contestant'
 require './lib/colorado_lottery'
+require 'time'
 
 RSpec.describe ColoradoLottery do 
   let(:lottery) {ColoradoLottery.new}
@@ -218,6 +219,79 @@ RSpec.describe ColoradoLottery do
       expect(alexander.spending_money).to eq(5)
       expect(frederick.spending_money).to eq(15)
 
+      lottery.charge_contestants(pick_4) 
+
+      final_expected = {cash_5 => ["Winston Churchill", "Grace Hopper"],
+                        mega_millions => ["Alexander Aigiades", "Frederick Douglass", "Grace Hopper"],
+                        pick_4 => ["Alexander Aigiades", "Grace Hopper"]}
+                       
+      expect(lottery.current_contestants).to eq(final_expected)
+    end
+  end
+
+  describe '#draw_winners' do 
+    it 'returns date of drawing as a string and populates winners array with a random winner for each game' do 
+       alexander.add_game_interest('Pick 4')
+      alexander.add_game_interest('Mega Millions')
+
+      frederick.add_game_interest('Mega Millions')
+
+      winston.add_game_interest('Cash 5')
+      winston.add_game_interest('Mega Millions')
+
+      benjamin.add_game_interest('Mega Millions')
+
+      lottery.register_contestant(alexander, pick_4) 
+      lottery.register_contestant(alexander, mega_millions) 
+      lottery.register_contestant(frederick, mega_millions)
+      lottery.register_contestant(winston, cash_5)
+      lottery.register_contestant(winston, mega_millions)
+
+      expected = {
+                    "Pick 4" => [alexander],
+                    "Mega Millions" => [alexander, frederick, winston],
+                    "Cash 5" => [winston]
+      }
+
+      grace.add_game_interest('Mega Millions')
+      grace.add_game_interest('Cash 5')
+      grace.add_game_interest('Pick 4')
+      lottery.register_contestant(grace, mega_millions)
+      lottery.register_contestant(grace, cash_5)
+      lottery.register_contestant(grace, pick_4)
+
+      expected2 = {
+                    "Pick 4" => [alexander, grace],
+                    "Mega Millions" => [alexander, frederick, winston, grace],
+                    "Cash 5" => [winston, grace]
+      }
+
+      lottery.charge_contestants(cash_5) 
+
+      lottery.charge_contestants(mega_millions)
+
+      current_expected = {cash_5 => ["Winston Churchill", "Grace Hopper"],
+                          mega_millions => ["Alexander Aigiades", "Frederick Douglass", "Grace Hopper"]}
+
+      lottery.charge_contestants(pick_4) 
+
+      final_expected = {cash_5 => ["Winston Churchill", "Grace Hopper"],
+                        mega_millions => ["Alexander Aigiades", "Frederick Douglass", "Grace Hopper"],
+                        pick_4 => ["Alexander Aigiades", "Grace Hopper"]}
+      
+      allow(lottery.date).to receive(Time.new.to_s).and_return(2022-12-30)
+      expect(lottery.draw_winners).to eq("2022-12-30")
+
+      stub_winner = [{"Winston Churchill"=>"Cash 5"},
+                      {"Frederick Douglass"=>"Mega Millions"},
+                      {"Grace Hopper"=>"Pick 4"}]
+
+      allow(lottery).to receive(:winners).and_return(stub_winner)
+
+      expect(lottery.winners.length).to eq(3)
+      expect(lottery.winners.last.class).to eq(Hash)
+      
+                       
     end
   end
 
